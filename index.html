@@ -13,14 +13,15 @@
       padding: 0;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #1c1c2b;
-      color: #fff;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
+   body {
+  font-family: 'Inter', sans-serif;
+  background: #1c1c2b;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
 
     .sidebar {
       width: 340px;
@@ -318,20 +319,19 @@
     /* MOBILE VIEW FIXES */
     @media (max-width: 768px) {
       body {
-        flex-direction: column;
-        height: auto;
-      }
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow: auto;
+    height: auto;
+  }
 
-      .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        padding: 20px;
-        flex-direction: column;
-        overflow-x: hidden;
-        overflow-y: auto;
-        gap: 20px;
-      }
+     .sidebar {
+    position: relative; /* <-- no fixed! */
+    width: 100%;
+    padding: 20px;
+    max-height: none;
+    overflow: visible;
+  }
 
       .profile img {
         width: 100px;
@@ -345,10 +345,10 @@
       }
 
       .main {
-        margin-left: 0;
-        padding: 20px;
-        height: auto;
-      }
+    margin-left: 0;
+    padding: 20px;
+    height: auto;
+  }
 
       .languages {
         justify-content: flex-start;
