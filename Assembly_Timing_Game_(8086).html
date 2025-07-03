@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assembly Timing Game - Final Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #1c1c2b;
+      color: #fff;
+      padding: 40px 20px;
+    }
+
+    a {
+      color: #20c997;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #08caff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #20c997;
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section h2 {
+      color: #08caff;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .section p,
+    .features li {
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .features ul {
+      padding-left: 20px;
+    }
+
+    .features li strong {
+      color: #20c997;
+    }
+
+    .screenshots img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .credits {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #aaa;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Assembly Timing Game (8086)</h1>
+
+    <div class="section">
+      <h2>Project Overview</h2>
+      <p><strong>Assembly Timing Game (8086)</strong> is a reaction-based timing guessing game created using 8086 Assembly. The user is shown a random time between 0 and 30 seconds, which they must mentally count. After pressing the spacebar to begin, the timer starts running in the background. The user then presses the spacebar again when they believe the time has passed. The program calculates and displays the actual delay, target time, and accuracy rating.</p>
+    </div>
+
+    <div class="section features">
+      <h2>Implemented Features</h2>
+      <ul>
+        <li><strong>Random Time Generation:</strong> Target time displayed at the start of each round</li>
+        <li><strong>Real-Time Timer:</strong> Background counting after the first spacebar press</li>
+        <li><strong>Spacebar Controls:</strong> Starts and stops the timer</li>
+        <li><strong>Accuracy Evaluation:</strong> Compares actual time with target and gives feedback (SUPER / GOOD / TRY HARDER)</li>
+        <li><strong>Replay Function:</strong> Press Enter to play again</li>
+        <li><strong>Assembly Implementation:</strong> Built entirely using 8086 Assembly language</li>
+      </ul>
+    </div>
+
+    <div class="section screenshots">
+      <h2>Project Screenshots</h2>
+      <img src="img/emu (3).png" alt="Welcome Message">
+      <img src="img/emu (1).png" alt="Initial Target Time Display">
+      <img src="img/emu (2).png" alt="Result and Replay Option">
+    </div>
+
+    <div class="credits">
+      <p>Final Project — Computer Organization and Assembly Language</p>
+      <p>Princess Sumaya University for Technology</p>
+    </div>
+
+  </div>
+</body>
+</html>

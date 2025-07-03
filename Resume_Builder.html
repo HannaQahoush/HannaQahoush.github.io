@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder - Final Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1c2b;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        a {
+            color: #20c997;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #08caff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #20c997;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h2 {
+            color: #08caff;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .section p,
+        .features li {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .features ul {
+            padding-left: 20px;
+        }
+
+        .features li strong {
+            color: #20c997;
+        }
+
+        .screenshots img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .videos video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .credits {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Resume Builder - Web App</h1>
+
+        <div class="section">
+            <h2>Project Overview</h2>
+            <p><strong>Resume Builder</strong> is a multipage web application designed to help users create professional
+                resumes with real-time previews. Built using HTML, CSS, JavaScript, jQuery, PHP, and MySQL, it includes
+                user authentication, data storage, form validation, accessibility features, and a modern user
+                experience.</p>
+        </div>
+
+        <div class="section features">
+            <h2>Implemented Features</h2>
+            <ul>
+                <li><strong>Frontend:</strong> Responsive layout using HTML5 and CSS3</li>
+                <li><strong>JavaScript/jQuery:</strong> Live resume preview and client-side interactivity</li>
+                <li><strong>Form Validation:</strong> Input validation for required fields and formats</li>
+                <li><strong>Authentication:</strong> Secure login and registration with PHP/MySQL</li>
+                <li><strong>Resume Form:</strong> Collects name, phone, education, experience, skills, photo</li>
+                <li><strong>Live Preview:</strong> Updates resume instantly as user types</li>
+                <li><strong>Database Integration:</strong> Stores user and resume data in MySQL</li>
+                <li><strong>Session Management:</strong> Protected pages and logout functionality</li>
+            </ul>
+        </div>
+
+        <div class="section screenshots">
+            <h2>Project Screenshots</h2>
+            <img src="img/dataBase1.png" alt="Home Page">
+            <img src="img/dataBase2.png" alt="Resume Builder Form">
+            <img src="img/dataBase3.png" alt="Resume Submission Confirmation">
+        </div>
+
+        <div class="section videos">
+            <h2>Demonstration Video</h2>
+            <video src="vid/Data Base.mp4" loop controls></video>
+            <video src="vid/ProFile - Online Resume Builder.mp4" loop controls></video>
+        </div>
+
+        <div class="credits">
+            <p>Final Project — Webpage Design and Internet Programming (12243)</p>
+            <p>Princess Sumaya University for Technology — Spring 2024/2025</p>
+        </div>
+
+    </div>
+</body>
+
+</html>

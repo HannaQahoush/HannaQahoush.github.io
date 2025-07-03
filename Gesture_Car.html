@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gesture Car - Final Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1c2b;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        a {
+            color: #20c997;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #08caff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #20c997;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h2 {
+            color: #08caff;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .section p,
+        .features li {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .features ul {
+            padding-left: 20px;
+        }
+
+        .features li strong {
+            color: #20c997;
+        }
+
+        .screenshots img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .videos video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .credits {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Gesture Car - ESP32 Controlled Vehicle</h1>
+
+        <div class="section">
+            <h2>Project Overview</h2>
+            <p><strong>Gesture Car</strong> is an IoT-based project that enables real-time control of an ESP32-powered
+                car using hand gestures. It utilizes an MPU6050 accelerometer to detect movement, and communicates
+                between two ESP32 modules using ESP-NOW. One ESP32 interprets the gesture input while the other
+                translates it into directional commands that control the car's motors.</p>
+        </div>
+
+        <div class="section features">
+            <h2>Implemented Features</h2>
+            <ul>
+                <li><strong>Gesture Detection:</strong> Hand motion captured via MPU6050 sensor</li>
+                <li><strong>Wireless Control:</strong> ESP-NOW protocol for peer-to-peer communication</li>
+                <li><strong>Motor Control:</strong> Real-time control of four motor directions using ESP32</li>
+                <li><strong>Speed Management:</strong> Dual-speed logic for turns and direction changes</li>
+                <li><strong>Wi-Fi Connectivity:</strong> Required for Blynk and ESP-NOW setup</li>
+                <li><strong>Secure Communication:</strong> MAC address binding to prevent cross-control</li>
+                <li><strong>Feedback:</strong> Serial output logs commands and status for debugging</li>
+            </ul>
+        </div>
+
+        <div class="section screenshots">
+            <h2>Project Photos</h2>
+            <img src="img/poster.png" alt="Project Poster">
+            <img src="img/c1.png" alt="Project Poster">
+            <img src="img/c2.png" alt="Project Poster">
+            <img src="img/c3.png" alt="Project Poster">
+        </div>
+
+        <div class="section videos">
+            <h2>Demonstration Video</h2>
+            <video src="vid/car-vid.mp4" loop controls></video>
+        </div>
+
+        <div class="credits">
+            <p>Final Project — Special Topic In Software Engineering 1</p>
+            <p>Princess Sumaya University for Technology</p>
+        </div>
+
+    </div>
+</body>
+
+</html>

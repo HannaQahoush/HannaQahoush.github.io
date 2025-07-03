@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JK Flip-Flop Counter - Digital Logic Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #1c1c2b;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        a {
+            color: #20c997;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #08caff;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #20c997;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h2 {
+            color: #08caff;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .section p,
+        .features li {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .features ul {
+            padding-left: 20px;
+        }
+
+        .features li strong {
+            color: #20c997;
+        }
+
+        .screenshots img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .credits {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #aaa;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>JK Flip-Flop Counter - Bidirectional Synchronous Design</h1>
+
+        <div class="section">
+            <h2>Project Overview</h2>
+            <p><strong>JK Flip-Flop Counter project</strong> is a digital logic design project focused on implementing a
+                bidirectional counter based on a specific university ID. The counter switches between forward and
+                reverse sequences depending on an external input. The design includes state diagrams, excitation tables,
+                K-map simplifications, and circuit implementation as per the course requirements.</p>
+        </div>
+
+        <div class="section features">
+            <h2>Implemented Features</h2>
+            <ul>
+                <li><strong>Counter Design:</strong> Based on student ID sequence, both forward and reverse</li>
+                <li><strong>Synchronous Logic:</strong> All flip-flops triggered by a common clock signal</li>
+                <li><strong>External Control:</strong> A 1-bit input selects counting mode (0 = forward, 1 = reverse)
+                </li>
+                <li><strong>State Encoding:</strong> Each digit encoded using binary and mapped to transition states
+                </li>
+                <li><strong>JK Flip-Flops:</strong> Excitation tables used to derive J and K input logic</li>
+                <li><strong>Karnaugh Maps:</strong> Used for logic minimization of J and K inputs</li>
+                <li><strong>Looping Counter:</strong> Cycles continuously through ID-based sequence</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Example</h2>
+            <p>If the student ID is <strong>20198765</strong>, the counter sequences will be:</p>
+            <ul>
+                <li><strong>Input = 0 (Forward):</strong> 2 → 0 → 1 → 9 → 8 → 7 → 6 → 5 → (loop)</li>
+                <li><strong>Input = 1 (Reverse):</strong> 5 → 6 → 7 → 8 → 9 → 1 → 0 → 2 → (loop)</li>
+            </ul>
+        </div>
+
+        <div class="section screenshots">
+            <h2>Design Diagram</h2>
+            <img src="img/dld1.png" alt="K-map Design and Flip-Flop Logic">
+            <img src="img/dld2.png" alt="State Diagram and Excitation Table">
+            <img src="img/dld3.png" alt="Flip-Flop Logic Equations">
+            <img src="img/dld4.png" alt="Final Diagram">
+        </div>
+
+        <div class="credits">
+            <p>Final Project — Digital Logic Design</p>
+            <p>Princess Sumaya University for Technology</p>
+        </div>
+
+    </div>
+</body>
+
+</html>
