@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="Portfolio of Hanna Qahoush, Software Engineering student at Princess Sumaya University for Technology — projects, hackathons, and certifications."/>
 <title>Hanna Qahoush | Software Engineer</title>
 <link rel="icon" href="favicon.ico">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -83,17 +84,12 @@
   .progress-track { background:#1b2021; border-radius:20px; overflow:hidden; height:6px; flex:1; margin:0 10px; }
   .progress-fill { background:linear-gradient(90deg,#00dce5,#6fd6df); height:6px; border-radius:20px; transition:width 1.2s ease; }
   .skill-bar-row { transition: all 0.3s ease; }
-  .skill-bar-row.active .progress-fill { background:linear-gradient(90deg,#4ade80,#22c55e) !important; }
-  .skill-bar-row.active .progress-track { background:#1b4d2b; }
   /* Certificate thumbnails */
   .cert-card { border:1px solid rgba(0,245,255,0.2); border-radius:8px; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s; text-decoration:none; color:inherit; display:flex; flex-direction:column; }
   .cert-card:hover { transform:scale(1.04); box-shadow:0 0 18px rgba(0,220,229,0.35); }
   .cert-label { background:rgba(0,50,54,0.8); color:#e9feff; font-size:12px; font-weight:600; text-align:center; padding:6px 4px; }
   /* Language circles */
   .lang-circle { width:64px; height:64px; border:2px solid rgba(0,245,255,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; color:#e9feff; margin:0 auto 6px; }
-  /* Language icons */
-  .lang-icon { width:48px; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px; cursor:pointer; transition: all 0.3s ease; border:2px solid rgba(111,214,223,0.3); }
-  .lang-icon:hover { background:rgba(111,214,223,0.2); border-color:#6fd6df; transform:scale(1.1); }
 </style>
 </head>
 <body class="font-body-md text-body-md overflow-x-hidden">
@@ -112,9 +108,6 @@
       <a class="text-on-surface-variant hover:text-primary transition-colors font-label-mono text-label-mono" href="#hackathons">Events</a>
       <a class="text-on-surface-variant hover:text-primary transition-colors font-label-mono text-label-mono" href="#certs">Certs</a>
       <a class="text-on-surface-variant hover:text-primary transition-colors font-label-mono text-label-mono" href="#contact">Contact</a>
-    </div>
-    <div class="md:hidden">
-      <span class="material-symbols-outlined text-primary">menu</span>
     </div>
   </nav>
 </header>
@@ -346,13 +339,23 @@
 </section>
 
 <style>
-  #lang-icons .lang-icon {
+  /* Consolidated lang-icon styling (single source of truth) */
+  .lang-icon {
     width: 3.25rem;
     height: 3.25rem;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 22px;
     flex: 0 0 auto;
+    cursor: pointer;
+    border: 2px solid rgba(111,214,223,0.3);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+  .lang-icon:hover,
+  .lang-icon.active-glow {
+    background: rgba(111,214,223,0.12);
   }
 
   /* Proficiency-based glow */
@@ -364,13 +367,10 @@
     background: var(--glow-color, #00f5ff) !important;
     box-shadow: 0 0 8px var(--glow-color, #00f5ff);
   }
-  .lang-icon {
-    transition: box-shadow 0.25s ease, transform 0.25s ease, color 0.25s ease;
-    border-radius: 10px;
-  }
   .lang-icon.active-glow {
     box-shadow: 0 0 16px 2px var(--glow-color, #00f5ff);
     color: var(--glow-color, #00f5ff);
+    border-color: var(--glow-color, #00f5ff);
     transform: translateY(-2px);
   }
 </style>
@@ -392,31 +392,41 @@
     bar.style.setProperty('--glow-color', pctToColor(pct));
   });
 
+  function activateLang(trigger, sourceColor) {
+    let matchedColor = sourceColor || '#00f5ff';
+    skillBars.forEach(bar => {
+      if (bar.getAttribute('data-lang') === trigger) {
+        bar.classList.add('active');
+        matchedColor = bar.style.getPropertyValue('--glow-color');
+      }
+    });
+    langIcons.forEach(icon => {
+      if (icon.getAttribute('data-trigger') === trigger) {
+        icon.style.setProperty('--glow-color', matchedColor);
+        icon.classList.add('active-glow');
+      }
+    });
+  }
+
+  function deactivateAll() {
+    skillBars.forEach(bar => bar.classList.remove('active'));
+    langIcons.forEach(icon => icon.classList.remove('active-glow'));
+  }
+
+  // Hover an icon -> glow icon + matching bar
   langIcons.forEach(icon => {
-    icon.addEventListener('mouseenter', () => {
-      const trigger = icon.getAttribute('data-trigger');
-      let matchedColor = '#00f5ff';
-
-      skillBars.forEach(bar => {
-        if (bar.getAttribute('data-lang') === trigger) {
-          bar.classList.add('active');
-          matchedColor = bar.style.getPropertyValue('--glow-color');
-        }
-      });
-
-      icon.style.setProperty('--glow-color', matchedColor);
-      icon.classList.add('active-glow');
-    });
-
-    icon.addEventListener('mouseleave', () => {
-      icon.classList.remove('active-glow');
-    });
+    icon.addEventListener('mouseenter', () => activateLang(icon.getAttribute('data-trigger')));
+    icon.addEventListener('mouseleave', deactivateAll);
   });
 
-  document.querySelectorAll('#skill-bars, #lang-icons').forEach(container => {
-    container.addEventListener('mouseleave', () => {
-      skillBars.forEach(bar => bar.classList.remove('active'));
+  // Hover a bar -> glow bar + matching icon (mirrored interaction)
+  skillBars.forEach(bar => {
+    bar.addEventListener('mouseenter', () => {
+      const color = bar.style.getPropertyValue('--glow-color');
+      bar.classList.add('active');
+      activateLang(bar.getAttribute('data-lang'), color);
     });
+    bar.addEventListener('mouseleave', deactivateAll);
   });
 
   (function () {
@@ -552,100 +562,101 @@
       </div>
     </a>
 
-<!-- Query Engine -->
-<a href="projects/query-engine.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
-  <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
-    <span class="material-symbols-outlined text-5xl text-primary/30">storage</span>
-    <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
-  </div>
-  <div class="px-4 py-4">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-primary font-bold text-lg">Mini Query Engine</h3>
-      <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
-    </div>
-    <p class="text-sm text-on-surface-variant mb-3">Custom SQL query execution engine in Java with join algorithm evaluation and performance analysis.</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Java</span>
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Databases</span>
-    </div>
-  </div>
-</a>
-<!-- CPU Scheduling -->
-<a href="projects/cpu-scheduling.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
-  <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
-    <span class="material-symbols-outlined text-5xl text-primary/30">developer_board</span>
-    <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
-  </div>
-  <div class="px-4 py-4">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-primary font-bold text-lg">CPU Scheduling Evaluation</h3>
-      <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
-    </div>
-    <p class="text-sm text-on-surface-variant mb-3">Performance evaluation of CPU scheduling algorithms — Operating Systems course project.</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">OS</span>
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Algorithms</span>
-    </div>
-  </div>
-</a>
+    <!-- Query Engine -->
+    <a href="projects/query-engine.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
+      <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary/30">storage</span>
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-primary font-bold text-lg">Mini Query Engine</h3>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-3">Custom SQL query execution engine in Java with join algorithm evaluation and performance analysis.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Java</span>
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Databases</span>
+        </div>
+      </div>
+    </a>
 
-<!-- ILLRMS -->
-<a href="projects/illrms.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
-  <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
-    <span class="material-symbols-outlined text-5xl text-primary/30">library_books</span>
-    <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
-  </div>
-  <div class="px-4 py-4">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-primary font-bold text-lg">ILLRMS Analysis</h3>
-      <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
-    </div>
-    <p class="text-sm text-on-surface-variant mb-3">Software requirements analysis for an Integrated Library &amp; Learning Resource Management System.</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Requirements</span>
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">SRS</span>
-    </div>
-  </div>
-</a>
+    <!-- CPU Scheduling -->
+    <a href="projects/cpu-scheduling.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
+      <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary/30">developer_board</span>
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-primary font-bold text-lg">CPU Scheduling Evaluation</h3>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-3">Performance evaluation of CPU scheduling algorithms — Operating Systems course project.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">OS</span>
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Algorithms</span>
+        </div>
+      </div>
+    </a>
 
-<!-- Automotive Parts -->
-<a href="projects/automotive-parts-system.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
-  <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
-    <span class="material-symbols-outlined text-5xl text-primary/30">build</span>
-    <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
-  </div>
-  <div class="px-4 py-4">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-primary font-bold text-lg">Automotive Parts System</h3>
-      <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
-    </div>
-    <p class="text-sm text-on-surface-variant mb-3">Full system analysis and design for an Automotive Parts Management System.</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">System Design</span>
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">UML</span>
-    </div>
-  </div>
-</a>
+    <!-- ILLRMS -->
+    <a href="projects/illrms.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
+      <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary/30">library_books</span>
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-primary font-bold text-lg">ILLRMS Analysis</h3>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-3">Software requirements analysis for an Integrated Library &amp; Learning Resource Management System.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Requirements</span>
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">SRS</span>
+        </div>
+      </div>
+    </a>
 
-<!-- Mirror of Truth News (HCI) -->
-<a href="projects/hci-news-platform.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
-  <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
-    <span class="material-symbols-outlined text-5xl text-primary/30">newspaper</span>
-    <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
-  </div>
-  <div class="px-4 py-4">
-    <div class="flex justify-between items-start mb-2">
-      <h3 class="text-primary font-bold text-lg">مرآة الحقيقة News</h3>
-      <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
-    </div>
-    <p class="text-sm text-on-surface-variant mb-3">Web &amp; mobile design for an Arabic-language news and live-streaming platform, built with distinct desktop and glassmorphic mobile interfaces.</p>
-    <div class="flex flex-wrap gap-2">
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">HCI</span>
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">UI/UX</span>
-      <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Figma</span>
-    </div>
-  </div>
-</a>
+    <!-- Automotive Parts -->
+    <a href="projects/automotive-parts-system.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
+      <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary/30">build</span>
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-primary font-bold text-lg">Automotive Parts System</h3>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-3">Full system analysis and design for an Automotive Parts Management System.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">System Design</span>
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">UML</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Mirror of Truth News (HCI) -->
+    <a href="projects/hci-news-platform.html" class="group glass p-1 rounded-xl transition-all duration-300 hover:-translate-y-2 glow-hover block">
+      <div class="relative overflow-hidden rounded-lg aspect-video mb-0 bg-surface-container-high flex items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary/30">newspaper</span>
+        <div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+      </div>
+      <div class="px-4 py-4">
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="text-primary font-bold text-lg">مرآة الحقيقة News</h3>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors">open_in_new</span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-3">Web &amp; mobile design for an Arabic-language news and live-streaming platform, built with distinct desktop and glassmorphic mobile interfaces.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">HCI</span>
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">UI/UX</span>
+          <span class="text-[10px] font-label-mono uppercase tracking-tighter text-secondary">Figma</span>
+        </div>
+      </div>
+    </a>
 
   </div>
 </section>
@@ -663,7 +674,7 @@
         </div>
         <div class="grid md:grid-cols-3 gap-8">
           <div class="md:col-span-1 flex items-center justify-center aspect-video glass rounded-xl overflow-hidden bg-white">
-            <video class="w-full h-full object-cover" autoplay muted loop>
+            <video class="w-full h-full object-cover" autoplay muted loop playsinline>
               <source src="projects/vid/void.mp4" type="video/mp4">
             </video>
           </div>
@@ -683,7 +694,7 @@
         </div>
       </div>
 
-      <!-- PSUT ACM -->
+      <!-- PSUT ACM Spring 2025 -->
       <div class="glass p-8 rounded-2xl">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -696,6 +707,7 @@
         </div>
       </div>
 
+      <!-- PSUT ACM Spring 2026 -->
       <div class="glass p-8 rounded-2xl">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -704,14 +716,15 @@
               🐢 Participated in PSUT ACM's 11th Annual Coding Marathon on May 2, 2026 — a Teenage Mutant Ninja Turtles–themed 5-hour hackathon where teams of 2–3 solved challenging algorithmic problems, emphasizing teamwork, problem-solving, and competitive programming in a fast-paced coding environment.
             </p>
           </div>
-        <span class="text-outline font-label-mono text-xs border border-outline-variant px-4 py-2 rounded-md shrink-0">Participant</span>
+          <span class="text-outline font-label-mono text-xs border border-outline-variant px-4 py-2 rounded-md shrink-0">Participant</span>
+        </div>
       </div>
-    </div>
+
     </div>
   </div>
 </section>
 
-  <!-- ── CERTIFICATES ── -->
+<!-- ── CERTIFICATES ── -->
 <section class="py-24 px-4 max-w-[1280px] mx-auto reveal" id="certs">
   <h2 class="font-headline-lg text-2xl md:text-3xl text-primary uppercase mb-12">Certifications</h2>
 
@@ -899,7 +912,7 @@
     <span class="font-label-mono font-bold text-primary tracking-tighter uppercase">Hanna Qahoush</span>
     <div class="flex gap-8">
       <a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="https://github.com/HannaQahoush" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="https://www.linkedin.com/hanna-qahoush-b5237b3a5/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors text-sm" href="https://www.linkedin.com/in/hanna-qahoush-b5237b3a5/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
     <p class="text-outline text-xs">© 2026 Hanna Qahoush</p>
   </div>
